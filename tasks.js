@@ -239,3 +239,32 @@ const TASKS = [
   { id: 'a-return-borrowed',zone: 'anywhere', mins: 15, title: 'Things that belong to other people', done: 'Gathered in one bag, with a text sent to arrange getting them back.' },
   { id: 'a-junk-mail-stop', zone: 'anywhere', mins: 15, title: 'Stop the junk mail at the source', done: 'Opt out of at least three catalogs or mailers that keep coming.' }
 ];
+
+/* ============================================================
+   Decision prompts
+   ------------------------------------------------------------
+   One of these shows under each day's task, rotating daily.
+
+   These are for the moment mid-drawer where you're holding
+   something you don't use and don't want, and still can't put
+   it in the bag. The task tells you what to do; this tells you
+   how to decide. Keep them short — it's one line on a phone.
+   ============================================================ */
+
+const PROMPTS = [
+  'If you needed this tomorrow, would you look for it here — or would you have forgotten you owned it?',
+  'Would you buy it again today, at full price?',
+  'The guilt is about money you already spent. Letting it go doesn\'t spend it twice.',
+  'Keeping it just in case? Name the case out loud.',
+  'If it\'s been broken for a year, this isn\'t the year you fix it.',
+  'Would you pack this if you moved next month?',
+  'Are you storing it, or just moving it from one spot to another?',
+  'Sentimental? Photograph it. The memory isn\'t in the object.',
+  'If it\'s a duplicate, which one do you actually reach for?',
+  'Does this fit the life you have now, or one you had five years ago?',
+  'Expired is a decision someone already made for you.',
+  'It didn\'t work out. That\'s information, not a debt.',
+  'Is this the one you\'d keep if you could only keep one?',
+  'Does someone else need this more than your shelf does?',
+  'You are allowed to get rid of a gift. You kept it long enough.'
+];

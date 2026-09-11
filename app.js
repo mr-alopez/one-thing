@@ -168,6 +168,14 @@
     return d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
   }
 
+  /* Rotates independently of the task, so swapping the task doesn't
+     swap the prompt — and the same prompt holds all day. */
+  function promptForToday() {
+    if (typeof PROMPTS === 'undefined' || !PROMPTS.length) return '';
+    var days = Math.floor(keyToDate(dayKey()).getTime() / 86400000);
+    return PROMPTS[((days % PROMPTS.length) + PROMPTS.length) % PROMPTS.length];
+  }
+
   function renderToday() {
     var d = today();
     var streak = currentStreak();
@@ -186,6 +194,10 @@
       $('taskTitle').textContent = t.title;
       $('taskEst').textContent = 'About ' + t.mins + ' minutes';
       $('taskDone').textContent = t.done;
+      var prompt = promptForToday();
+      $('taskPrompt').textContent = prompt;
+      // an older cached tasks.js has no PROMPTS — don't render an empty box
+      $('taskPrompt').parentNode.hidden = !prompt;
       $('btnSwap').hidden = false;
     } else {
       $('taskCard').hidden = true;

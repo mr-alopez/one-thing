@@ -156,6 +156,33 @@ h1.task {
 }
 .donewhen p { margin: 0; color: var(--muted); font-size: 15.5px; }
 
+/* The decision prompt. Deliberately quieter than the task — it's an
+   aside for when she's stuck holding something, not a second instruction. */
+.stuck {
+  margin-top: 16px;
+  background: var(--soft);
+  border-radius: 12px;
+  padding: 13px 15px;
+}
+.stuck .lbl {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: .75;
+  margin-bottom: 5px;
+}
+.stuck p {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15.5px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
 .actions { margin-top: 22px; display: grid; gap: 10px; }
 .btn {
   border: 1px solid transparent;
@@ -362,6 +389,10 @@ nav.tabs > div {
       <div class="donewhen">
         <span class="lbl">Done when</span>
         <p id="taskDone"></p>
+      </div>
+      <div class="stuck">
+        <span class="lbl">If you get stuck</span>
+        <p id="taskPrompt"></p>
       </div>
       <div class="actions">
         <button class="btn btn-primary" id="btnDone">Done</button>
