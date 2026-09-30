@@ -68,13 +68,17 @@ seconds and it's more reliable than a web notification would have been.
 Everything is in [`tasks.js`](tasks.js). Each entry looks like this:
 
 ```js
-{ id: 'k-junk-drawer', zone: 'kitchen', mins: 15, title: 'The junk drawer',
+{ id: 'k-junk-drawer', zone: 'kitchen', mins: 15,
+  decide: ['broken', 'justincase', 'dupes'], title: 'The junk drawer',
   done: 'Everything out. Dead pens and mystery keys in the trash.' },
 ```
 
 - `id` — must be unique, and **never change it once it's been used**, or the
   completed history for that task gets orphaned.
 - `zone` — one of the keys in `ZONES` at the top of the file.
+- `decide` — which "If you get stuck" prompts fit this task. The tags are listed
+  with the prompts at the bottom of `tasks.js`. Use `[]` for tasks with no
+  keep-or-toss decision in them — they show no prompt.
 - `done` — the finish line. This is the important field. It's what keeps a task
   from quietly growing into a whole afternoon.
 

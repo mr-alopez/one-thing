@@ -3,7 +3,7 @@
    and offline, and any edit you push shows up the next time it's opened.
    Bump CACHE if you ever need to force everyone onto a clean copy. */
 
-var CACHE = 'one-thing-v2';
+var CACHE = 'one-thing-v3';
 var SHELL = [
   './',
   './index.html',

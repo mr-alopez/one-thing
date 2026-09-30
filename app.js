@@ -168,12 +168,21 @@
     return d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
   }
 
-  /* Rotates independently of the task, so swapping the task doesn't
-     swap the prompt — and the same prompt holds all day. */
-  function promptForToday() {
+  /* Picks only from prompts whose tags match the task's `decide` list,
+     seeded on date + task so it holds all day but differs by task.
+     `decide: []` means no prompt. No `decide` at all — custom tasks from
+     the More tab — means the general prompts. */
+  function promptFor(t) {
     if (typeof PROMPTS === 'undefined' || !PROMPTS.length) return '';
-    var days = Math.floor(keyToDate(dayKey()).getTime() / 86400000);
-    return PROMPTS[((days % PROMPTS.length) + PROMPTS.length) % PROMPTS.length];
+    var want = Array.isArray(t.decide) ? t.decide : ['general'];
+    if (!want.length) return '';
+    var fits = PROMPTS.filter(function (p) {
+      return p.tags && p.tags.some(function (tag) { return want.indexOf(tag) !== -1; });
+    });
+    if (!fits.length) return '';
+    var seed = dayKey() + '|' + t.id, h = 0;
+    for (var i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
+    return fits[Math.abs(h) % fits.length].text;
   }
 
   function renderToday() {
@@ -194,9 +203,9 @@
       $('taskTitle').textContent = t.title;
       $('taskEst').textContent = 'About ' + t.mins + ' minutes';
       $('taskDone').textContent = t.done;
-      var prompt = promptForToday();
+      var prompt = promptFor(t);
       $('taskPrompt').textContent = prompt;
-      // an older cached tasks.js has no PROMPTS — don't render an empty box
+      // no fitting prompt (or an older cached tasks.js) — hide the box entirely
       $('taskPrompt').parentNode.hidden = !prompt;
       $('btnSwap').hidden = false;
     } else {
